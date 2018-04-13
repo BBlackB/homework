@@ -20,6 +20,6 @@ int IsEmpty(Queue *Q);
 int IsFull(Queue *Q);
 int EnQueue(Queue *Q, ElemType item);
 int DeQueue(Queue *Q, ElemType *item);
-int GetHead(Queue *Q, ElemType *item	);
+int GetHead(Queue *Q, ElemType *item);
 
 #endif

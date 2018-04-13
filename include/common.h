@@ -1,6 +1,7 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__ 
 
-#define ElemType int
+#define ElemType char
+
 
 #endif
