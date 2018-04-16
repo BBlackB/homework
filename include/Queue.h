@@ -1,6 +1,9 @@
 #ifndef __QUEUE_H__
 #define __QUEUE_H__ 
 
+//Must specify the ElemType when include this file
+
+
 #include "common.h"
 
 typedef struct LinkNode
@@ -18,8 +21,9 @@ typedef struct Queue_
 void InitQueue(Queue *Q, int size);
 int IsEmpty(Queue *Q);
 int IsFull(Queue *Q);
-int EnQueue(Queue *Q, ElemType item);
-int DeQueue(Queue *Q, ElemType *item);
-int GetHead(Queue *Q, ElemType *item);
+void EnQueue(Queue *Q, ElemType item);
+ElemType DeQueue(Queue *Q);
+ElemType GetHead(Queue *Q);
+int Length(Queue *Q);
 
 #endif

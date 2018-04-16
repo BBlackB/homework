@@ -7,14 +7,14 @@ void InitQueue(Queue *Q, int size)
 {
 	LNode *head, *q;
 	LNode *p = (LNode *)malloc(sizeof(LNode));
-	p->data = 0;
+	p->data = NULL;
 	head = p;
 	q = p;
 	while(size--)
 	{
 		p = (LNode *)malloc(sizeof(LNode));
 		//Initialize data with default value
-		p->data = 0;
+		p->data = NULL;
 		q->next = p;
 		q = p;
 	}
@@ -35,28 +35,34 @@ int IsFull(Queue *Q)
 	return Q->rear->next == Q->front;
 }
 
-int EnQueue(Queue *Q, ElemType item)
+void EnQueue(Queue *Q, ElemType item)
 {
-	if (IsFull(Q))
-		return 0;
 	Q->rear->data = item;
 	Q->rear = Q->rear->next;
-	return 1;
 }
 
-int DeQueue(Queue *Q, ElemType *item)
+ElemType DeQueue(Queue *Q)
 {
-	if (IsEmpty(Q))
-		return 0;
-	*item = Q->front->data;
+	ElemType item;
+	item = Q->front->data;
 	Q->front = Q->front->next;
-	return 1;
+	return item;
 }
 
-int GetHead(Queue *Q, ElemType *item)
+ElemType GetHead(Queue *Q)
 {
-	if (IsEmpty(Q))
-		return 0;
-	*item = Q->front->data;
-	return 1;
+	return Q->front->data;
+}
+
+int Length(Queue *Q)
+{
+	int len = 0;
+	LNode *p = Q->front;
+	
+	while(p != Q->rear) 
+	{
+		p = p->next;
+		len++;
+	}
+	return len;
 }
