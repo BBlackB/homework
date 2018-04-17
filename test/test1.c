@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "../include/test1.h"
-#include "../include/Queue.h"
+#include "Queue.h"
 #include <malloc.h>
 
 int main()
