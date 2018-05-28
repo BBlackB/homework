@@ -163,4 +163,5 @@ void PrintArr(int *buf, int size)
 	int i;
 	for (i = 0; i < size; i++)
 		printf("%d ", buf[i]);
+	printf("\n");
 }
