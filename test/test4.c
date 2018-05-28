@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <time.h>
-#include "QSort.h"
+#include "Sort.h"
 
 #define ARRAY_LENGTH 1024
 #define MAX_DATA 32767

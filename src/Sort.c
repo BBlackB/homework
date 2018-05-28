@@ -1,4 +1,4 @@
-#include "QSort.h"
+#include "Sort.h"
 
 void GenData(int *data, int N, int min_data, int max_data)
 {
@@ -47,4 +47,50 @@ int BinSearch(int *arr, int total, int item)
         else high = k - 1;
     }
     return -1;
+}
+
+void swap(int *arr, int x, int y)
+{
+    int tmp; 
+    tmp = arr[x];
+    arr[x] = arr[y];
+    arr[y] = tmp;
+}
+
+
+void AdjustHeap(int *arr, int node, int total)
+{
+    int child;
+    for (;2*node+1 < total; node = child)
+    {
+        child = 2*node+1;
+
+        //choose smaller one
+        if (child+1 < total)
+        {
+            if (arr[child] > arr[child+1]) child++;
+        }
+        
+        if (arr[node] > arr[child])
+        {
+            // swap
+            swap(arr, node, child);
+        }
+        else break;
+    }
+}
+
+void HeapSort(int *arr, int total, int times)
+{
+    //create heap
+    for (int i = total/2-1; i >= 0; --i)
+    {
+        AdjustHeap(arr, i, total);
+    }
+
+    for (int i = 0; i < times; i++)
+    {
+        swap(arr, 0, total-i-1);
+        AdjustHeap(arr, 0, total-i-1);
+    }
 }
