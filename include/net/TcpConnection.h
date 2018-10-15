@@ -39,7 +39,7 @@ class TcpConnection
     ~TcpConnection();
 
     void init();
-    void send(const std::string message);
+    int send(const std::string message);
 
     void setInputBuffer(std::string buf) { ibuf_ = buf; }
     void setOutputBuffer(std::string buf) { obuf_ = buf; }

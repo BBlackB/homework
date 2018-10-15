@@ -31,8 +31,8 @@ class Acceptor
 
   public:
     Acceptor(EventLoop *ploop);
-    void init();
-    void setConnectionHandler(ConnHandler connectionHandler);
+    int init();
+    int setConnectionHandler(ConnHandler connectionHandler);
     static void handleEvent(TcpConnection *pcap, int socket);
 
   private:

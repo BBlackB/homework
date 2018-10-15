@@ -10,7 +10,7 @@
 #include "net/EventLoop.h"
 #include "log/Log.h"
 
-void EventLoop::init() { pEpoll_.init(); }
+int EventLoop::init() { return pEpoll_.init(); }
 
 void EventLoop::loop()
 {
@@ -25,8 +25,8 @@ void EventLoop::loop()
     }
 }
 
-void EventLoop::add(Channel *pchannel) { pEpoll_.add(pchannel); }
+int EventLoop::add(Channel *pchannel) { return pEpoll_.add(pchannel); }
 
-void EventLoop::mod(Channel *pchannel) { pEpoll_.mod(pchannel); }
+int EventLoop::mod(Channel *pchannel) { return pEpoll_.mod(pchannel); }
 
-void EventLoop::del(Channel *pchannel) { pEpoll_.del(pchannel); }
+int EventLoop::del(Channel *pchannel) { return pEpoll_.del(pchannel); }

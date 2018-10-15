@@ -12,6 +12,7 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <sys/socket.h>
+#include <errno.h>
 #include "log/Log.h"
 #include "net/Acceptor.h"
 
@@ -50,18 +51,22 @@ int Acceptor::createAndListen()
     return listenfd_;
 }
 
-void Acceptor::init()
+int Acceptor::init()
 {
     listenfd_ = createAndListen();
+    if (listenfd_ < 0) return errno;
     pacceptorchannel_ = new Channel(ploop_, listenfd_);
     pacceptorchannel_->setReadHandler(handleEvent);
     pacceptorchannel_->addReading();
+    return errno;
 }
 
 // 设置connection回调函数
-void Acceptor::setConnectionHandler(ConnHandler connectionHandler)
+int Acceptor::setConnectionHandler(ConnHandler connectionHandler)
 {
+    if (connectionHandler == NULL) return -1;
     handleConnection_ = connectionHandler;
+    return 0;
 }
 
 void Acceptor::handleEvent(TcpConnection *pcap, int sockfd)

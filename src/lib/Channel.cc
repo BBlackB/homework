@@ -17,8 +17,7 @@ Channel::Channel(EventLoop *loop, int fd)
     , handleRead_(NULL)
     , handleWrite_(NULL)
     , ptcp_(NULL)
-{
-}
+{}
 
 Channel::Channel(EventLoop *loop, int fd, TcpConnection *ptcp)
     : ploop_(loop)
@@ -28,8 +27,7 @@ Channel::Channel(EventLoop *loop, int fd, TcpConnection *ptcp)
     , handleRead_(NULL)
     , handleWrite_(NULL)
     , ptcp_(ptcp)
-{
-}
+{}
 
 Channel::~Channel()
 {
@@ -45,15 +43,21 @@ void Channel::setRevent(uint32_t revent) { revent_ = revent; }
 
 int Channel::getFd() { return fd_; }
 
-void Channel::enableReading()
+void Channel::enableReading(bool enable)
 {
-    event_ = EPOLLIN;
+    if (enable)
+        event_ = EPOLLIN;
+    else
+        event_ &= ~EPOLLIN;
     update();
 }
 
-void Channel::enableWriting()
+void Channel::enableWriting(bool enable)
 {
-    event_ = EPOLLOUT;
+    if (enable)
+        event_ = EPOLLOUT;
+    else
+        event_ &= ~EPOLLOUT;
     update();
 }
 

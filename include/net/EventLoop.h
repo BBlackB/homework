@@ -18,11 +18,11 @@ class EventLoop
   public:
     // EventLoop();
     // ~EventLoop();
-    void init();
+    int init();
     void loop();
-    void mod(Channel *pchannel);
-    void add(Channel *pchannel);
-    void del(Channel *pchannel);
+    int mod(Channel *pchannel);
+    int add(Channel *pchannel);
+    int del(Channel *pchannel);
 };
 
 #endif // __NET_EVENT_LOOP_H__

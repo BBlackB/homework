@@ -31,10 +31,10 @@ class Epoll
   public:
     Epoll(bool bEt = true);
     // ~Epoll();
-    int init();                  // 初始化epfd
-    void add(Channel *pChannel); // 添加事件
-    void del(Channel *pChannel); // 删除事件
-    void mod(Channel *pChannel); // 修改事件
+    int init();                 // 初始化epfd
+    int add(Channel *pChannel); // 添加事件
+    int del(Channel *pChannel); // 删除事件
+    int mod(Channel *pChannel); // 修改事件
     void wait(std::vector<Channel *> &channels);
 };
 

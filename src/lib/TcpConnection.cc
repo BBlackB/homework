@@ -21,8 +21,7 @@ void handleWrite(TcpConnection *ptcp, int sockfd);
 TcpConnection::TcpConnection(EventLoop *ploop, int sockfd)
     : sockfd_(sockfd)
     , ploop_(ploop)
-{
-}
+{}
 
 TcpConnection::~TcpConnection() { delete pchannel_; }
 
@@ -36,20 +35,22 @@ void TcpConnection::init()
 
 void TcpConnection::setResponse(Response pResponse) { pResponse_ = pResponse; }
 
-void TcpConnection::send(const std::string message)
+int TcpConnection::send(const std::string message)
 {
     int nwritten = 0;
     if (obuf_.empty()) {
         nwritten = ::write(sockfd_, message.c_str(), message.size());
         if (nwritten < 0) {
             LOG(LOG_ERROR_LEVEL, "TcpConnection::send write\n");
+            return errno;
         }
     }
 
     if (nwritten < static_cast<int>(message.size())) {
         obuf_ += message.substr(nwritten, message.size());
-        if (!pchannel_->isWriting()) pchannel_->enableWriting();
+        if (!pchannel_->isWriting()) pchannel_->enableWriting(true);
     }
+    return 0;
 }
 
 // @bug:没有断开连接操作

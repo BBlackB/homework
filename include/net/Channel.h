@@ -42,8 +42,8 @@ class Channel
     void setRevent(uint32_t revent);
     int getFd();
 
-    void enableReading();
-    void enableWriting();
+    void enableReading(bool enable);
+    void enableWriting(bool enable);
     bool isWriting();
 
     void setReadHandler(Handler readHandler);

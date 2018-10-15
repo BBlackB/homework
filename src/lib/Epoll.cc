@@ -11,8 +11,7 @@
 
 Epoll::Epoll(bool bEt)
     : bEt_(bEt)
-{
-}
+{}
 
 int Epoll::init()
 {
@@ -24,28 +23,34 @@ int Epoll::init()
     return 0;
 }
 
-void Epoll::add(Channel *pChannel)
+int Epoll::add(Channel *pChannel)
 {
     struct epoll_event ev;
     ev.data.ptr = pChannel;
     ev.events = pChannel->getEvent();
     if (bEt_) ev.events |= EPOLLET;
+    if (pChannel->getFd() < 0) return -1;
     ::epoll_ctl(epfd_, EPOLL_CTL_ADD, pChannel->getFd(), &ev);
+    return 0;
 }
 
-void Epoll::del(Channel *pChannel)
+int Epoll::del(Channel *pChannel)
 {
     struct epoll_event ev;
+    if (pChannel->getFd() < 0) return -1;
     ::epoll_ctl(epfd_, EPOLL_CTL_DEL, pChannel->getFd(), &ev);
+    return 0;
 }
 
-void Epoll::mod(Channel *pChannel)
+int Epoll::mod(Channel *pChannel)
 {
     struct epoll_event ev;
     ev.data.ptr = pChannel;
     ev.events = pChannel->getEvent();
     if (bEt_) ev.events |= EPOLLET;
+    if (pChannel->getFd() < 0) return -1;
     ::epoll_ctl(epfd_, EPOLL_CTL_MOD, pChannel->getFd(), &ev);
+    return 0;
 }
 
 void Epoll::wait(std::vector<Channel *> &channels)
